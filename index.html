@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        :root {
+            --pink-bg: #fcf4e4;
+            --pink-accent: #fc55c4;
+            --white: #ffffff;
+            --text-color: #4a4a4a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--pink-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            color: var(--pink-accent);
+            font-size: 1.5rem;
+        }
+
+        p {
+            color: var(--text-color);
+        }
+
+        .btn-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-yes {
+            background-color: var(--pink-accent);
+            color: white;
+        }
+
+        .btn-no {
+            background-color: #eee;
+            color: #555;
+            position: relative;
+        }
+
+        .gift-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .gift-box {
+            background: #fff0f5;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px dashed var(--pink-accent);
+        }
+
+        /* Animations */
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .bear-img {
+            width: 100px;
+            animation: bounce 2s infinite;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap');
+
+        .perks-card {
+            background: linear-gradient(135deg, #ffe0ec, #fff5f9);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 30px rgba(255, 105, 135, 0.25);
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .perks-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.4rem;
+            color: #ff4d79;
+            margin-bottom: 20px;
+        }
+
+        .perks-box {
+            font-family: 'Poppins', sans-serif;
+            text-align: left;
+            background: #ffffffcc;
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .perks-box ul {
+            padding-left: 18px;
+            margin-top: 5px;
+        }
+
+        .perks-box li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .perk.pro {
+            color: #2ecc71;
+            font-weight: 700;
+        }
+
+        .perk.con {
+            color: #ff6b6b;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        .no-cons {
+            font-weight: 600;
+            color: #ff4d79;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff5f8f, #ff85a2);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(255, 95, 143, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(255, 95, 143, 0.6);
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        .stickers {
+            margin-top: 15px;
+            font-size: 1.6rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* 🎁 Gift Hub Styles */
+        #screen4 h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff4d79;
+        }
+
+        .gift-box {
+            background: linear-gradient(135deg, #fff1f6, #ffe4ec);
+            border-radius: 15px;
+            padding: 18px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(255, 105, 135, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 105, 135, 0.45);
+        }
+
+        /* 🎁 Overlay */
+        #giftContent {
+            background: #fff;
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 380px;
+            animation: popIn 0.6s ease;
+        }
+
+        /* 💌 Letter Animation */
+        .letter {
+            width: 100%;
+            background: #fff0f5;
+            border-radius: 15px;
+            font-family: 'Pacifico', cursive;
+            font-size: 1rem;
+            color: #000264;
+            line-height: 1.7;
+            animation: openLetter 1.5s ease forwards;
+            transform-origin: top;
+        }
+
+        @keyframes openLetter {
+            from {
+                transform: scaleY(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        /* 📸 Photo Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(255, 90, 140, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.07);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 0, 93, 0.4);
+            }
+
+            50% {
+                text-shadow: 0 0 15px rgba(255, 0, 93, 0.8);
+            }
+
+            100% {
+                text-shadow: 0 0 5px rgba(255, 0, 93, 0.4);
+            }
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;800&display=swap');
+
+        .celebrate-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.05rem;
+            color: #444;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #ff3d7f;
+            font-weight: 800;
+        }
+
+        .love-glow {
+            color: #ff005d;
+            font-weight: 800;
+            text-shadow: 0 0 8px rgba(255, 0, 93, 0.6);
+            animation: glow 1.5s ease-in-out infinite;
+        }
+
+        .glow {
+            box-shadow: 0 0 18px rgba(255, 95, 143, 0.8);
+        }
+
+        .kiss-img.romantic {
+            width: 130px;
+            margin: 15px auto;
+            display: block;
+            border-radius: 18px;
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);
+            animation: softPulse 2.5s infinite;
+        }
+
+        @keyframes softPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+
+
+        @keyframes hugBounce {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+        .gift-video video {
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+        }
+
+        .final-card {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .final-inner {
+            background: #fff;
+            padding: 25px 20px;
+            border-radius: 22px;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.45);
+            border: 2px solid #ffe4ec;
+        }
+
+        .final-teddy {
+            width: 110px;
+            margin-bottom: 10px;
+            animation: hugFloat 3s ease-in-out infinite;
+        }
+
+        .final-love {
+            font-family: 'Pacifico', cursive;
+            color: #ff4d79;
+            font-size: 1.3rem;
+            margin: 5px 0;
+        }
+
+        .final-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .final-text span {
+            display: block;
+            margin-top: 6px;
+            font-weight: 700;
+            color: #ff5f8f;
+        }
+
+        /* Animations */
+        @keyframes hugFloat {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-6px) scale(1.05);
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gift-title {
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            color: #ff4d79;
+            margin-bottom: 8px;
+        }
+
+        .gift-teddy {
+            width: 85px;
+            height: auto;
+            margin: 6px auto;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .gift-caption {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 6px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-no {
+            transition: top 0.25s ease, left 0.25s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SCREEN 1: THE PROPOSAL -->
+    <div id="screen1" class="card">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1eXp6N3B6eXp6N3B6eXp6N3B6eXp6N3B6eXp6N3B6eXAmZXA9djFfaW50ZXJuYWxfZ2lmX2J5X2lkJmN0PXM/cLS1cfxvGOPVpf9g3y/giphy.gif"
+            class="bear-img" alt="Cute Bear">
+        <h1>PATOOTIEE,</h1>
+        <p>Will you be my Valentine? ❤️</p>
+        <div class="btn-container">
+            <button class="btn-yes" onclick="nextScreen(2)">YES ❤️</button>
+            <button id="noBtn" class="btn-no" onmouseover="moveButton()" onclick="moveButton()">NO 💔</button>
+        </div>
+    </div>
+    <!-- SCREEN 2: PERKS -->
+    <div id="screen2" class="card perks-card hidden">
+        <p class="perks-title">💌 Maybe I should explain the perks of being my Valentine… 💌</p>
+
+        <div class="perks-box">
+            <p class="perk pro">🌟 <b>Pros:</b></p>
+            <ul>
+                <li>🍳 I’ll cook delicious food just for you</li>
+                <li>📸 I’ll take your cutest photos</li>
+                <li>🤗 Unlimited hugs & cuddles</li>
+                <li>💬 Late-night talks & silly laughs</li>
+            </ul>
+            <p class="perk con">😏 <b>Cons:</b></p>
+            <p class="no-cons">Absolutely nothing! 🚫😄</p>
+        </div>
+
+        <button class="btn-yes pulse" onclick="nextScreen(3)">
+            OKAY, YES! ❤️
+        </button>
+    </div>
+    <!-- SCREEN 3: CELEBRATION -->
+    <div id="screen3" class="card celebration-card hidden">
+        <img src="https://media.tenor.com/rkZe2fpDISoAAAAj/bubu.gif" alt="Cute Teddy Hug"
+            class="kiss-img romantic" />
+
+
+        <h1 class="perks-title">YAYYYYYY!!! 🎉</h1>
+
+        <p class="celebrate-text">
+            That’s the <span class="highlight">BEST</span> decision you’ve ever made!<br>
+            I <span class="love-glow">LOVE YOU</span> 💕🥰
+        </p>
+
+        <button class="btn-yes pulse" onclick="nextScreen(4)">
+            Click for Gifts
+        </button>
+    </div>
+
+    <!-- SCREEN 4: GIFT HUB -->
+    <div id="screen4" class="card hidden">
+        <h1>Your Gifts 🎁</h1>
+
+        <div class="gift-grid">
+
+            <!-- Gift 1: Music -->
+            <div class="gift-box" onclick="showGift('music')">
+                <div class="gift-title">🎵 Gift 1</div>
+                <img src="https://media.tenor.com/15YUsMWt4FEAAAAj/music.gif" alt="Music Teddy" class="gift-teddy" />
+                <p class="gift-caption">Listening together 🎧</p>
+            </div>
+
+            <!-- Gift 2: Letter -->
+            <div class="gift-box" onclick="showGift('letter')">
+                <div class="gift-title">✉️ Gift 2</div>
+                <img src="https://media1.tenor.com/m/OfD7XgrZaFcAAAAC/love-bear.gif" alt="Letter Teddy"
+                    class="gift-teddy" />
+                <p class="gift-caption">Reading with love 💌</p>
+            </div>
+
+            <!-- Gift 3: Photos -->
+            <div class="gift-box" onclick="showGift('photos')">
+                <div class="gift-title">📸 Gift 3</div>
+                <img src="https://media.tenor.com/HLFUTKcqy0AAAAAj/bubu-pics-bubu-photo.gif" alt="Photo Teddy"
+                    class="gift-teddy" />
+                <p class="gift-caption">Capturing moments 📷</p>
+            </div>
+
+        </div>
+        <p id="finalMsg" class="hidden" style="margin-top:20px; color:#ff4d79; font-weight:800;">
+            <img src="https://media.tenor.com/PpV43ddYxr8AAAAi/peach-goma.gif"
+                style="width: 120px; display: block; margin: 10px auto;" alt="Teddy Hug">
+            Yayyyy!!! You opened all the gifts!<br>Love you so much Patootie! ❤️
+        </p>
+    </div>
+
+    <!-- GIFT CONTENT OVERLAY (Simplified) -->
+    <div id="giftContent" class="card hidden" style="position: absolute; z-index: 10;">
+        <div id="contentArea"></div>
+        <br>
+        <button class="btn-no" onclick="backToGifts()">Back to Gifts</button>
+    </div>
+
+    <script>
+        let openedGifts = new Set();
+
+        function nextScreen(screenNum) {
+            document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+            document.getElementById('screen' + screenNum).classList.remove('hidden');
+        }
+
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const card = document.getElementById('screen1');
+
+            // Calculate safe movement area inside the card
+            const maxX = card.clientWidth - btn.offsetWidth - 10;
+            const maxY = card.clientHeight - btn.offsetHeight - 10;
+
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+
+            btn.style.position = 'absolute';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+
+            // ✅ Change text playfully
+            const texts = ["Nope 😜", "Try again 😘", "Almost 😆", "You can’t 😝"];
+            btn.innerText = texts[Math.floor(Math.random() * texts.length)];
+        }
+
+        function showGift(type) {
+            openedGifts.add(type);
+            const content = document.getElementById('contentArea');
+            const overlay = document.getElementById('giftContent');
+            if (type === 'music') {
+                content.innerHTML = `
+                    <h3 style="font-family:'Pacifico', cursive; color:#ff4d79;">
+                        This Song Dedicated To You ! 🎵💖
+                    </h3>
+
+                    <div onclick="window.open('https://www.youtube.com/watch?v=CFj1HXUGhaY&list=RDCFj1HXUGhaY&start_radio=1','_blank')"
+                        style="
+                            margin-top:15px;
+                            padding:20px;
+                            border-radius:15px;
+                            background:linear-gradient(135deg,#ffe0ec,#fff5f9);
+                            box-shadow:0 10px 25px rgba(255,105,135,.35);
+                            cursor:pointer;
+                        ">
+                        ▶️ <b>Unnai paarthu kettu poona kavijan💖</b><br>
+                        <small>Kaatru Veliyidai - Azhagiye 💕</small>
+                    </div>
+                    <p style="margin-top:12px;color:#ff3d7f;">
+                        Click to listen together 🎧❤️
+                    </p>
+                `;
+            }
+
+
+            else if (type === 'letter') {
+                content.innerHTML = `
+                    <h3>💌 My Letter</h3>
+                            <div class="letter">
+    My Love ❤️,<br>
+
+    I don’t need Valentine’s Day to love you,<br>
+    because every single day feels like Valentine’s Day<br>
+    when my thoughts are filled with YOU ❤️<br>
+
+    Being apart isn’t easy,<br>
+    but this distance only proves how strong our love truly is.<br>
+    Every message, every call, every memory keeps us closer,<br>
+    even when miles stand between us 💕<br>
+
+    One day, this distance will just be a story we smile about,<br>
+    and we’ll say softly to each other,<br>
+    <b>"This was just another beautiful chapter of our love."</b> 🥹💖<br><br>
+
+    Forever yours,<br>
+    <i>– Your Love</i>
+</div>
+                `;
+            }
+            else if (type === 'photos') {
+                content.innerHTML = `
+        <h3 style="font-family:'Pacifico',cursive;color:#ff4d79;">
+            A Kiss Only For You 😘💋
+        </h3>
+
+        <video controls autoplay loop muted playsinline
+            style="
+                width:260px;
+                border-radius:20px;
+                box-shadow:0 15px 30px rgba(255,105,135,.45);
+            ">
+            <source src="gift3.mp4" type="video/mp4">
+        </video>
+
+        <p style="margin-top:10px;color:#ff3d7f;">
+            Even miles apart, this kiss is yours ❤️
+        </p>
+    `;
+            }
+
+            overlay.classList.remove('hidden');
+            if (openedGifts.size === 3) {
+                document.getElementById('finalMsg').classList.remove('hidden');
+            }
+        }
+        function backToGifts() {
+            document.getElementById('giftContent').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>
